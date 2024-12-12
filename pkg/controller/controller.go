@@ -271,7 +271,7 @@ func (ctrl *resizeController) deletePVC(obj interface{}) {
 func (ctrl *resizeController) Run(workers int, ctx context.Context) {
 	defer ctrl.claimQueue.ShutDown()
 
-	klog.InfoS("Starting external resizer", "controller", ctrl.name)
+	klog.InfoS("Starting external resizer Elijah", "controller", ctrl.name)
 	defer klog.InfoS("Shutting down external resizer", "controller", ctrl.name)
 
 	stopCh := ctx.Done()

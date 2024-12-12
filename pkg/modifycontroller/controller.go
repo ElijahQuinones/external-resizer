@@ -203,7 +203,7 @@ func (ctrl *modifyController) Run(
 	workers int, ctx context.Context) {
 	defer ctrl.claimQueue.ShutDown()
 
-	klog.InfoS("Starting external resizer for modify volume", "controller", ctrl.name)
+	klog.InfoS("Starting external resizer for modify volume Elijah", "controller", ctrl.name)
 	defer klog.InfoS("Shutting down external resizer", "controller", ctrl.name)
 
 	if !ctrl.init(ctx) {
