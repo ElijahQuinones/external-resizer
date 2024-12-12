@@ -533,7 +533,7 @@ func (ctrl *resizeController) markPVCAsFSResizeRequired(pvc *v1.PersistentVolume
 	newPVC.Status.Conditions = util.MergeResizeConditionsOfPVC(newPVC.Status.Conditions,
 		[]v1.PersistentVolumeClaimCondition{pvcCondition}, false /*keepOldResizeCondition*/)
 
-	updatedPVC, err := util.PatchClaim(ctrl.kubeClient, pvc, newPVC, true /* addResourceVersionCheck */)
+	updatedPVC, err := util.PatchClaim(ctrl.kubeClient, pvc, newPVC, false /* addResourceVersionCheck */)
 	if err != nil {
 		return fmt.Errorf("mark PVC %q as file system resize required failed: %w", klog.KObj(pvc), err)
 	}
@@ -562,7 +562,7 @@ func (ctrl *resizeController) markPVCResizeInProgress(pvc *v1.PersistentVolumeCl
 	newPVC.Status.Conditions = util.MergeResizeConditionsOfPVC(newPVC.Status.Conditions,
 		[]v1.PersistentVolumeClaimCondition{progressCondition}, false /*keepOldResizeCondition*/)
 
-	updatedPVC, err := util.PatchClaim(ctrl.kubeClient, pvc, newPVC, true /* addResourceVersionCheck */)
+	updatedPVC, err := util.PatchClaim(ctrl.kubeClient, pvc, newPVC, false /* addResourceVersionCheck */)
 	if err != nil {
 		return updatedPVC, fmt.Errorf("Mark PVC %q as resize as in progress failed: %v", klog.KObj(pvc), err)
 	}
@@ -580,7 +580,7 @@ func (ctrl *resizeController) markPVCResizeFinished(
 	newPVC.Status.Capacity[v1.ResourceStorage] = newSize
 	newPVC.Status.Conditions = util.MergeResizeConditionsOfPVC(pvc.Status.Conditions, []v1.PersistentVolumeClaimCondition{}, false /*keepOldResizeCondition*/)
 
-	updatedPVC, err := util.PatchClaim(ctrl.kubeClient, pvc, newPVC, true /* addResourceVersionCheck */)
+	updatedPVC, err := util.PatchClaim(ctrl.kubeClient, pvc, newPVC, false /* addResourceVersionCheck */)
 	if err != nil {
 		return fmt.Errorf("Mark PVC %q as resize finished failed: %w", klog.KObj(pvc), err)
 	}

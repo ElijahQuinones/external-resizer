@@ -130,7 +130,7 @@ func GetPVCPatchData(oldPVC, newPVC *v1.PersistentVolumeClaim, addResourceVersio
 	if addResourceVersionCheck {
 		patchBytes, err = addResourceVersion(patchBytes, oldPVC.ResourceVersion)
 		if err != nil {
-			return nil, fmt.Errorf("apply ResourceVersion to patch data failed: %v", err)
+			return nil, fmt.Errorf("WE DONT WANT TO BE HERE apply ResourceVersion to patch data failed: %v", err)
 		}
 	}
 	return patchBytes, nil
@@ -216,7 +216,7 @@ func PatchClaim(kubeClient kubernetes.Interface, oldPVC, newPVC *v1.PersistentVo
 	updatedClaim, updateErr := kubeClient.CoreV1().PersistentVolumeClaims(oldPVC.Namespace).
 		Patch(context.TODO(), oldPVC.Name, types.StrategicMergePatchType, patchBytes, metav1.PatchOptions{}, "status")
 	if updateErr != nil {
-		return oldPVC, fmt.Errorf("can't patch status of  PVC %s with %v", klog.KObj(oldPVC), updateErr)
+		return oldPVC, fmt.Errorf("WE MADE IT HERE can't patch status of  PVC %s with %v", klog.KObj(oldPVC), updateErr)
 	}
 
 	return updatedClaim, nil

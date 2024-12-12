@@ -57,7 +57,7 @@ func (ctrl *modifyController) markControllerModifyVolumeStatus(
 			[]v1.PersistentVolumeClaimCondition{pvcCondition})
 	}
 
-	updatedPVC, err := util.PatchClaim(ctrl.kubeClient, pvc, newPVC, true)
+	updatedPVC, err := util.PatchClaim(ctrl.kubeClient, pvc, newPVC, false)
 	if err != nil {
 		return pvc, fmt.Errorf("mark PVC %q as modify volume failed, errored with: %v", pvc.Name, err)
 	}

@@ -51,7 +51,7 @@ func (ctrl *resizeController) markControllerResizeInProgress(
 		newPVC = mergeStorageResourceStatus(newPVC, v1.PersistentVolumeClaimControllerResizeInProgress)
 	}
 	newPVC = mergeStorageAllocatedResources(newPVC, newSize)
-	updatedPVC, err := util.PatchClaim(ctrl.kubeClient, pvc, newPVC, true /* addResourceVersionCheck */)
+	updatedPVC, err := util.PatchClaim(ctrl.kubeClient, pvc, newPVC, false /* addResourceVersionCheck */)
 	if err != nil {
 		return pvc, err
 	}
